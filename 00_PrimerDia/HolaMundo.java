@@ -6,7 +6,7 @@ class HolaMundo {
 		} /* int de entero, bucle Arg y entero igual a los argumentos */
 		
 		int entero; 
-		entero = 1234567890; /*maxima longitud de numero entero en int*/
+		entero = 2234567890; /*maxima longitud de numero entero en int*/
 		
 		float decimal = 1234567890123456789f;  /* por defecto es de tipo double y da error; hay que añadir la f si queremos que sea float.
 		Si es numero grande redondea*/
