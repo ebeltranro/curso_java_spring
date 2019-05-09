@@ -152,23 +152,26 @@ public class polimorfismo {
       
       ClienteInvitado clienteinvLuis = (ClienteInvitado) mapaClientes.get("Invitado Luis"); //me pide hacer un cast porque mapaClientes tiene la forma de Cliente
       //y necesito cambiar a forma de invitado SIEMPRE Y CUANDO SEPAMOS QUE ES DE TIPO CLIENTE INVITADO
-      clienteinvLuis.setDuracionMax(4);
-      System.out.println(clienteinvLuis.getDuracionMax());
+      clienteinvLuis.setDuracionMax(clienteinvLuis.getDuracionMax());
+      System.out.println(clienteinvLuis.getDuracionMax()+10);
       
       ClienteVip clientevipBea = (ClienteVip) mapaClientes.get("Vip Bea");
       clientevipBea.setBeneficio("CERO");
       System.out.println(clientevipBea.getBeneficio());
       
-        System.out.println("viendo la modificacion del bucle");
+      System.out.println("viendo la modificacion del bucle");
       
       for (Map.Entry<String,Cliente> entradaClientes : mapaClientes.entrySet()){ //no los recorre en orden!
         Cliente valor  = entradaClientes.getValue();
            
-        if (valor instanceof ClienteInvitado){
-            ((ClienteInvitado) valor).setDuracionMax(900000000);//se genera solo desde el desarrollo
+        if (valor instanceof ClienteInvitado){ //instancia es objeto de una clase. si valor es objecto de calse Cliente 
+            
+            ClienteInvitado cliInv = (ClienteInvitado) valor;
+            cliInv.setDuracionMax(cliInv.getDuracionMax() + 900000000);//se genera solo desde el desarrollo
              valor.mostrar();
         } else if (valor instanceof ClienteVip){
-            ((ClienteVip) valor).setBeneficio("nada de nadaaaaaaaaaaaaaa");
+            ClienteVip cliVip = (ClienteVip) valor;
+            cliVip.setBeneficio(cliVip.getBeneficio() + " nada de nadaaaaaaaaaaaaaa");
             valor.mostrar();
         } else {
             valor.mostrar();
