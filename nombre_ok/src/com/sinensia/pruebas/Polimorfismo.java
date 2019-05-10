@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class polimorfismo {
+public class Polimorfismo {
     
     public static ArrayList<Cliente> listaClientes; //hace a la variable "global" a todo el documento
   
@@ -34,7 +34,7 @@ public class polimorfismo {
          clienteNormal.mostrar(); //sale el mostrar del hijo (invitado) tenga la forma del padre o del hijo; porque está sobreescrito.
          
          
-         //un objeto puede tener la forma del padre
+         //un objeto hijo puede tener la forma del padre
          //un padre (Cliente) no puede tener la del hijo (ClienteInvitado)
          // ClienteInvitado elMismoInv = clienteNormal; da error porque no puedes cambiar la forma del Padre (Cliente) al Hijo (ClienteInvitado)
          //Para hacer conversión explícita necesitas usar el cast
@@ -164,15 +164,14 @@ public class polimorfismo {
       for (Map.Entry<String,Cliente> entradaClientes : mapaClientes.entrySet()){ //no los recorre en orden!
         Cliente valor  = entradaClientes.getValue();
            
-        if (valor instanceof ClienteInvitado){ //instancia es objeto de una clase. si valor es objecto de calse Cliente 
-            
+        if (valor instanceof ClienteInvitado){ //instancia es objeto de una clase. si valor es objecto de clase ClienteInvitado
             ClienteInvitado cliInv = (ClienteInvitado) valor;
-            cliInv.setDuracionMax(cliInv.getDuracionMax() + 900000000);//se genera solo desde el desarrollo
-             valor.mostrar();
+            cliInv.setDuracionMax(cliInv.getDuracionMax() + 900000000);
+            cliInv.mostrar();
         } else if (valor instanceof ClienteVip){
             ClienteVip cliVip = (ClienteVip) valor;
             cliVip.setBeneficio(cliVip.getBeneficio() + " nada de nadaaaaaaaaaaaaaa");
-            valor.mostrar();
+            cliVip.mostrar();
         } else {
             valor.mostrar();
         }
