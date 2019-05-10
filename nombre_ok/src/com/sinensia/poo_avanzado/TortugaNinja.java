@@ -19,7 +19,7 @@ public class TortugaNinja extends Mascota implements Mamifero{
 
     @Override //probando para que pare el programa porque no puede volar la tortuga. otra opción sería dejarlo vacío
     public void volar() {
-      // throw new UnsupportedOperationException("No puede volar"); //No puede volar
+       throw new UnsupportedOperationException("No puede volar"); //No puede volar
     }
 
     @Override

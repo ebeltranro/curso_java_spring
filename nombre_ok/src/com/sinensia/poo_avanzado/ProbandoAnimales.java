@@ -52,7 +52,29 @@ public class ProbandoAnimales {
                 
         michelangelo.mover();
         michelangelo.comer();
-        michelangelo.volar();
+        
+        
+        try {
+            michelangelo.volar(); //si no lo meto en un try da errror de excepción y se detendrá el programa
+        } 
+        /*catch (Exception ex){ //el catch captura el error
+            ex.printStackTrace(); //te devuelve el error pero continúa el programa
+            System.err.println(ex.getMessage());
+        }*/
+        catch (UnsupportedOperationException ex){ //el catch puede capturar un error concreto
+            System.err.println(ex.getMessage());
+        } catch (StringIndexOutOfBoundsException ex){
+            System.err.println(" Error en el String" + ex.getMessage());
+        }catch (Exception ex){
+            System.err.println(" Error general" + ex.getMessage());
+        } finally{ //siempre se ejecuta; aunque no haya ninguna excepción
+            System.out.println("Siempre me ejecuto. Cerremos recursos");
+        }
+       
+
+
+           
+        
         michelangelo.mamar();
         //michelangelo.mamar2(michelangelo);
         michelangelo.mamar3(sid);
