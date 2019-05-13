@@ -1,6 +1,7 @@
 package com.sinensia.dao;
 
-import com.sinensia.Cliente;
+
+import com.sinensia.Entidad;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,14 +11,17 @@ import java.util.Map;
  *
  * @author Admin - Elena
  */
-public class ClienteDAO implements InterfazDAO<Cliente>{
-    HashMap<Long, Cliente> mapa;
-    public ClienteDAO(){
+//creemos una clase genérica basda en ProbandoDAO
+public class GenericoDAO<T extends Entidad>  implements InterfazDAO<T>{ //importante saber que el Tipo T hereda de Entidad, para poder usar el método getId()
+    
+   
+    HashMap<Long, T> mapa;
+    public GenericoDAO(){
         mapa = new HashMap<>();
     }
     
     @Override
-    public void poner(Cliente cli){
+    public void poner(T cli){
         if (cli == null){
             System.err.println("No se pueden añadir nulos");
         } else{
@@ -28,7 +32,7 @@ public class ClienteDAO implements InterfazDAO<Cliente>{
     }
     
     @Override
-    public Cliente leerUno(long id){
+    public T leerUno(long id){
         if (mapa.containsKey(id)){
             return mapa.get(id);
         } else {
@@ -38,7 +42,7 @@ public class ClienteDAO implements InterfazDAO<Cliente>{
     }
 
     @Override
-    public void eliminar(Cliente valor) {
+    public void eliminar(T valor) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         mapa.remove(valor.getId());//borra todo, clave y valor. podriamos poner también getNombre() pero lo habitual es usar el Id porque es unico
     }
@@ -50,23 +54,23 @@ public class ClienteDAO implements InterfazDAO<Cliente>{
     }
 
     @Override
-    public List<Cliente> leerTodos() {
+    public List<T> leerTodos() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    ArrayList<Cliente> listaleidaClientes;
-    listaleidaClientes = new ArrayList<>();
+    ArrayList<T> listaleida;
+    listaleida= new ArrayList<>();
     
-    for (Map.Entry<Long,Cliente> parClaveValor : mapa.entrySet()){
-        Cliente Clientevalue = parClaveValor.getValue();
-        listaleidaClientes.add(Clientevalue);
+    for (Map.Entry<Long,T> parClaveValor : mapa.entrySet()){
+        T Tvalue = parClaveValor.getValue();
+        listaleida.add(Tvalue);
      }
-    //List listaleidaLista = (List) listaleidaClientes; //no es necesario
-    return listaleidaClientes; //no hace falta hacer el cast porque ArrayList es hija de List. Ya hace el cast implícito
+    //List listaleidaLista = (List) listaleida; //no es necesario
+    return listaleida; //no hace falta hacer el cast porque ArrayList es hija de List. Ya hace el cast implícito
     }
-    
-   /* @Override //forma de modificar elemento a elemento
-    public Cliente modificar(Cliente nuevoValor) {
+
+    /*@Override //lo quitamos porque la clase genérica no tendrá activo ni email
+    public T modificar(T nuevoValor) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-      Cliente clienteModificado = mapa.get(nuevoValor.getId());
+      T clienteModificado = mapa.get(nuevoValor.getId());
       String nuevoEmail = nuevoValor.getEmail();
       clienteModificado.setEmail(nuevoEmail);
       clienteModificado.setNombre(nuevoValor.getNombre());
@@ -74,14 +78,17 @@ public class ClienteDAO implements InterfazDAO<Cliente>{
       //System.out.println(mapa.get(nuevoValor.getId()).getNombre());
       //return true; //con boolean
       return clienteModificado;        
-    }*/
+    }
+    */
 
     //otra forma usando replace
     @Override
-    public void modificar2(Cliente nuevoValor) {
+    public void modificar2(T nuevoValor) {
        mapa.replace(nuevoValor.getId(),nuevoValor);
     }
-
-
-
+    
+    
+    
 }
+
+

@@ -1,9 +1,11 @@
 package com.sinensia;
 
-public class Cliente {
+
+
+public class Cliente extends Entidad{ //forma de llamar a clases anidadas, la clase que la contiene
     
    //las propiedades de una clase siempre privadas o protected
-   protected long id; /*todos los campos privados para evitar lios*/
+   //protected long id; /*todos los campos privados para evitar lios*/ Lo quitamos porque lo tiene la clase Entidad
    protected String nombre; /*Sring es cadena de texto*/ //protected solo publico para los hijos
    private String email; 
    private boolean activo;
@@ -20,9 +22,9 @@ public class Cliente {
             
     //constructor
     public Cliente(long id, String nombre, String email)  {
-       
-        this.id = id; /*la palabra this para refererirnos al objeto pero puede 
-        confundir con el parámetro. this al campo, sin this al valor
+        super(id);//mejor llamamos al constructor del padre
+        //this.id = id; /*la palabra this para refererirnos al objeto pero puede 
+        /*confundir con el parámetro. this al campo, sin this al valor
         */
 
         this.nombre = nombre;
@@ -44,9 +46,7 @@ public class Cliente {
     }
     */
         
-    public long getId() {/* Metodo que devuelve el id. Identico campo pero empezando por mayuscula. id -->Id*/
-         return id;
-                 }
+
 
     public String getNombre() {
         return nombre;

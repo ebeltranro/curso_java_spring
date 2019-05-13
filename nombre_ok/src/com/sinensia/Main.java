@@ -11,6 +11,7 @@ import static com.sinensia.pruebas.Polimorfismo.arrayclientes;
 import static com.sinensia.pruebas.Polimorfismo.hashmapclientes;
 import static com.sinensia.genericos.ProbandoGenericos.probarMetodo;
 import static com.sinensia.dao.ProbandoDAO.probarCliente;
+import static com.sinensia.dao.ProbandoDAO.probarProducto;
 
 
 
@@ -34,6 +35,7 @@ public class Main {
        //ProbandoAnimales.probarClasesAbstractas();
        
         probarCliente();
+        probarProducto();
   }
   
      
