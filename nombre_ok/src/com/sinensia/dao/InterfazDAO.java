@@ -20,9 +20,9 @@ public interface InterfazDAO<T> {
     
     void poner(T valor);
     T leerUno(long id);
-    ArrayList<T> leerTodos();
+    List<T> leerTodos();
     void eliminar(T valor);
     void eliminar (long id);
-    void modificar(/*lond id,*/T nuevoValor); //como el id no se cambia, ya conociendo los datos del nuevo valor conocemos el id del cliente al que nos referimos
+    T modificar(/*lond id,*/T nuevoValor); //como el id no se cambia, ya conociendo los datos del nuevo valor conocemos el id del cliente al que nos referimos
     
 }

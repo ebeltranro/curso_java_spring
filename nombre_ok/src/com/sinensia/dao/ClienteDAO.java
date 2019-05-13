@@ -50,7 +50,7 @@ public class ClienteDAO implements InterfazDAO<Cliente>{
     }
 
     @Override
-    public ArrayList<Cliente> leerTodos() {
+    public List<Cliente> leerTodos() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     ArrayList<Cliente> listaleidaClientes;
     listaleidaClientes = new ArrayList<Cliente>();
@@ -59,15 +59,20 @@ public class ClienteDAO implements InterfazDAO<Cliente>{
         Cliente Clientevalue = parClaveValor.getValue();
         listaleidaClientes.add(Clientevalue);
      }
-    return listaleidaClientes;
- 
+    List listaleidaLista = (List) listaleidaClientes; //como lista no puede instanciarse (es abstracta) lo hacemos en ArrayList y le hacemos un casting a List
+    return listaleidaLista; 
     }
 
     @Override
-    public void modificar(Cliente nuevoValor) {
+    public Cliente modificar(Cliente nuevoValor) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
       Cliente clienteModificado = mapa.get(nuevoValor.getId());
-      clienteModificado.setEmail(nuevoValor.getEmail());
+      String nuevoEmail = nuevoValor.getEmail();
+      clienteModificado.setEmail(nuevoEmail);
       clienteModificado.setNombre(nuevoValor.getNombre());
+      //System.out.println(mapa.get(nuevoValor.getId()).getNombre());
+      //return true; //con boolean
+      return clienteModificado;
+        
     }
 }
