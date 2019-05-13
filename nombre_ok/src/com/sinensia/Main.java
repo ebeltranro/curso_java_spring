@@ -9,6 +9,9 @@ import com.sinensia.pruebas.Polimorfismo;
 import static com.sinensia.pruebas.Polimorfismo.polimorfeando;
 import static com.sinensia.pruebas.Polimorfismo.arrayclientes;
 import static com.sinensia.pruebas.Polimorfismo.hashmapclientes;
+import static com.sinensia.genericos.ProbandoGenericos.probarMetodo;
+import static com.sinensia.dao.ProbandoDAO.probarCliente;
+
 
 
 
@@ -28,7 +31,9 @@ public class Main {
        //hashmapclientes();
        
        //ejemploSet();
-       ProbandoAnimales.probarClasesAbstractas();
+       //ProbandoAnimales.probarClasesAbstractas();
+       
+        probarCliente();
   }
   
      

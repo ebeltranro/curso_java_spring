@@ -1,11 +1,14 @@
 package com.sinensia.pruebas;
 
 import com.sinensia.Cliente;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Colecciones {
     
@@ -45,9 +48,26 @@ public class Colecciones {
       System.out.println("Clave del cliente " + parClaveValor.getKey());
       Cliente Clientevalue = parClaveValor.getValue();
       System.out.println("Nombre del cliente " + Clientevalue.getNombre());
-      
-  }
-      
+     }
+     
+     
+     
+     //otro mapa. TreeMap ordena los elementos
+     Map<Date,Cliente> mapClientesFecha = new TreeMap<Date,Cliente>();
+     //mapClientesFecha.put(10, luis);//da error porque 10 no es una fecha
+     mapClientesFecha.put(new Date(1982,4,9), luis); //sale tachada porque es obsoleta pero se puede seguir usando
+     mapClientesFecha.put(new Date(1981,4,9), new Cliente(7,"Fulano","ff@ff.com"));
+     mapClientesFecha.put(new Date(1982,9,1), new Cliente(8,"Mengano","mm@mm.com"));
+     mapClientesFecha.put (new Date(1980,7,10), diccClientes.get("c3"));//añades un elemento del otro mapa
+     
+     System.out.println("\n \n *** Mapa ordenador fecha *** \n");
+     
+     for (Map.Entry<Date,Cliente> entrada: mapClientesFecha.entrySet()){
+         System.out.println("\n - Clave: "+ entrada.getKey().toString()); //al no tratar con cadenas de texto es conveniente añadirlo; aunque java lo llama automáticamente
+         System.out.println("- Valor: "+ entrada.getValue().toString());
+     }
+     
+    
       
   }
     public static void ejemploListas() {

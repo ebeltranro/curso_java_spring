@@ -79,6 +79,14 @@ public class Cliente {
         System.out.println("Email " + this.getEmail());//getEmail es publico asi que puede acceder el fichero principal
     }
 
+    @Override
+    public String toString() {
+        //return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        return "Cliente [" + id + "," + nombre + ", " + email + "]";
+    }
+
+    
+    
     public void setDuracionMax(int i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
