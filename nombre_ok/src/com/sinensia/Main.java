@@ -5,6 +5,7 @@ import static com.sinensia.pruebas.Herencia.ProbandoHerencia; //otra manera de i
 import static com.sinensia.pruebas.Colecciones.ejemploListas;
 import static com.sinensia.pruebas.Colecciones.ejemploHashMap;
 import static com.sinensia.pruebas.Colecciones.ejemploSet;
+import static com.sinensia.pruebas.Colecciones.comparaciones;
 import com.sinensia.pruebas.Polimorfismo;
 import static com.sinensia.pruebas.Polimorfismo.polimorfeando;
 import static com.sinensia.pruebas.Polimorfismo.arrayclientes;
@@ -16,6 +17,7 @@ import com.sinensia.pruebas.Ficheros;
 import static com.sinensia.pruebas.Ficheros.probarEscritura;
 import static com.sinensia.pruebas.Ficheros.escrituraStream;
 import static com.sinensia.pruebas.Ficheros.lecturaFich;
+import static com.sinensia.pruebas.TratamientoCadenas.pruebasString;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +38,9 @@ public class Main {
         //probarCliente();
         //probarProducto();
         //escrituraStream();
-        lecturaFich();
+        //lecturaFich();
+        //comparaciones();
+        pruebasString();
 
         /*try{            
             probarEscritura();     

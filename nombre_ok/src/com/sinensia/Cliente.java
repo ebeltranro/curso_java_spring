@@ -2,7 +2,8 @@ package com.sinensia;
 
 
 
-public class Cliente extends Entidad{ //forma de llamar a clases anidadas, la clase que la contiene
+public class Cliente extends Entidad implements Comparable<Cliente>{ //para que adquiera el método getId //Comparable es una
+    //interfaz que contiene java
     
    //las propiedades de una clase siempre privadas o protected
    //protected long id; /*todos los campos privados para evitar lios*/ Lo quitamos porque lo tiene la clase Entidad
@@ -89,6 +90,18 @@ public class Cliente extends Entidad{ //forma de llamar a clases anidadas, la cl
     
     public void setDuracionMax(int i) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override //sobreescribimos el método de la interfaz
+    public int compareTo(Cliente otrocli) {
+        //Comparamos por nombre
+        if (nombre.compareTo(otrocli.nombre) == 0){
+        //Si son iguales comparamos por email
+            return email.compareTo(otrocli.email);
+        } else{ //Si son distintos devolvemos la comparación del nombre
+            return nombre.compareTo(otrocli.nombre);
+        }
+            
     }
 
 }
