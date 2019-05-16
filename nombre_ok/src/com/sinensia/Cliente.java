@@ -8,8 +8,8 @@ public class Cliente extends Entidad implements Comparable<Cliente>{ //para que 
    //las propiedades de una clase siempre privadas o protected
    //protected long id; /*todos los campos privados para evitar lios*/ Lo quitamos porque lo tiene la clase Entidad
    protected String nombre; /*Sring es cadena de texto*/ //protected solo publico para los hijos
-   private String email; 
-   private boolean activo;
+   String email; 
+   protected boolean activo;
    private char genero; /*char es una letra*/
 
    
@@ -34,6 +34,14 @@ public class Cliente extends Entidad implements Comparable<Cliente>{ //para que 
                         }
         this.email = email;
         this.activo = true; /*no está añadido como opción*/
+    }
+
+    public Cliente(long id, String nombre, String email, boolean activo) {
+        super(id);
+        this.nombre = nombre;
+        this.email = email;
+        this.activo = activo;
+        this.genero = genero;
     }
     
 
@@ -83,7 +91,7 @@ public class Cliente extends Entidad implements Comparable<Cliente>{ //para que 
     @Override
     public String toString() {
         //return super.toString(); //To change body of generated methods, choose Tools | Templates.
-        return "Cliente [" + id + "," + nombre + ", " + email + "]";
+        return "Cliente [" + id + "," + nombre + ", " + email + ", " + activo + "]";
     }
 
     
