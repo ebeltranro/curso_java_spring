@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Otros campos FORM</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1> Otros campos FORM </h1>
+        <!--los id valen para coger el valor por JS o css -->
+        <form action ="#" method="post" enctype="text/plain"> <!-- # para enviar a la misma página donde estamos -->
+            <input type = "button" value ="Botón JS" onclick="alert('Hola qué pacha')"/>
+            <input type = "button" value ="Botón JS externo" onclick="mostrarMensaje('hola')"/>
+            <br/><label for="fichero">Fichero:</label>
+            <input type="file" id="fichero" name="fichero"/>
+            <br/><label for="fecha">Fecha: </label>
+            <input type="datetime" id="fecha" name="fecha"/>
+            <br/><label for="password"> Password: </label>
+            <input type="password" id="password" name="password" maxlength="10"/>
+            <br/><label for="password-encript"> Campo no visible: </label><!--hidden es un campo oculto para la contraseña, para que no la hackeen-->
+            <input type="hidden" id="password-encript" name="password-encript" value="skldmn8274ns"/>
+            <br/><label for="color"> Color: </label>
+            <input type="color" name="color" id="color" />
+
+
+            <br/> <h2>Otros campos </h2>
+            <br/><label for="direccion-serv"> Url: </label>
+            <input type="url" id="direccion-serv" name="direccion-serv"/>
+            <br/><label for="rango"> Rango: </label>
+            <input type="range" name="rango" id="rango" min="-50" max="50"/>
+            <br/><label for="telefono"> Teléfono: </label>
+            <input type="tel" name="telefono" id="telefono" maxlength="9"/><br/>
+            <br/><label for="busqueda"> Búsqueda: </label>
+            <input type="search" name="busqueda" id="busqueda"/>
+            <br/><br/><input type="submit" id="enviar" name="enviar" value="Enviar"/> <!--se enviarían a action en form -->
+
+            <br/> <h2>Otros campos especiales </h2>
+            <input type="checkbox" checked="checked"/>O checado o no
+            <br/> Opciones:
+            <input type="radio" name="tipoCliente" id="tipoCliente" value="Cliente_normal"/> Cliente normal
+            <!-- value es el valor de la variable que ese envía, pero no el texto que aparece -->
+            <input type="radio" name="tipoCliente" id="tipoClienteInv" value="Cliente_invitado"/> Cliente invitado
+            <!--ojo el mismo name aunque el id sea diferente; corresponde al mismo campo -->
+            <input type="radio" name="tipoCliente" id="tipoClienteVip" value="Cliente_vip"
+                   checked="checked"/> Cliente vip
+            <!--como los tres tienen el mismo nombre, cuando se activa uno se desactiva otro-->
+
+            <br/> Frecuencia de viajes:
+            <select id="frecuencia" name="frecuencia" multiple="">
+                <option value="1"> Una vez al día</option>
+                <option value="2"> Varias veces al día</option>
+                <option value="3"> Varias veces a la semana</option>
+                <option value="4"> Varias veces al mes</option>           
+            </select>
+            <br/>Comentarios o mensaje: </br>
+            <textarea cols="30" rows="6" id="comentarios" name="comentarios" 
+                      placeholder = "Tú cuenta, que se te ignorará"></textarea>
+        </form>
+        
+        <table border="2"> 
+            <caption>Lista de vainas</caption>
+            <tr>  <!--Corresponde a una fila -->
+                <td>Vaina:</td>
+                <td>Quitapelos para Jorge </td>
+                <td> 50 € </td>
+            </tr>
+            <tr>  
+                <td>Vaina:</td>
+                <td>Un coche estroepao </td>
+                <td> 200 € </td>
+            </tr>
+            <tr>  
+                <td>Vaina:</td>
+                <td>Peine </td>
+                <td> 15 € </td>
+            </tr>
+        </table>
+        <br/>
+        <img src="images/sit.jpg"
+             alt="Texto alternativoem IMG" width="600" height="600"/>
+        
+        <br/><a href = "index.html"> Vuelve al índice </a>
+        <script src="js/04_mascampos.js"></script>
+
+    </body>
+</html>

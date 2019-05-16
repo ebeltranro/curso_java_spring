@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html> 
+<html lang = "es">  
+    <head>
+        <meta charset="UTF-8"/>
+        <title> Formularios </title>
+        <style type="text/css"> /*mejor primero los estilos y luego la página*/
+            form{
+                background-color: #AAFFAA; /*color de fondo*/ 
+                padding: 40px; /*hueco entre el margen del texto y el margen del elemento (formulario)*/
+            }
+            .rojo{
+                color:red;
+            }
+        </style>
+    </head>
+    <body>
+
+        <h1> Formularios </h1>
+        <form action="mailto:correo@empresa.com" method ="post" enctype="text/plain">
+            <label for="nombre">Nombre:</label> <!--con for añadimos a qué etiqueta corresponde el label-->
+            <input type="text" name="nombre" id="nombre" size="30" maxlength="40" placeholder ="Introduzca su nombre" /><br/> <!-- size es para el tamaño de la barra; aunque 
+            podemos meterle todo el texto-->
+            <!-- maxlength limita los caracteres que se pueden incluir -->
+            <!--Placeholder te añade texto en la barra-->
+            <br/>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" size="30" maxlength="255"/><br/>
+            <br/>
+            <label for="email">Edad:</label>
+            <input type="number" name="edad" id="edad" min="18" max="80" step="5"/> <br/>
+            <br/>
+            <input type="submit" value="Enviar formulario"/>
+            <input type="reset" value="Borrar formulario"/><br/>
+        </form>
+        <br/><a href = "index.html" class = "rojo" > Vuelve al índice </a>
+        <script> //código javascript; debe ir al final del body. Cambia el código para comentarios
+            //todo lo que hacemos en html lo podemos alterar en el script
+            var texto = "Un texto cualquiera";
+            var numero = 10.3434;
+            var campoNombre = document.getElementById("nombre"); //document. es nuestro documento HTML5
+            campoNombre.value = "";
+            document.getElementById("email").setAttribute("placeholder", "Introduzca su email")
+            document.getElementById("email").value = "";
+            document.getElementById("edad").value = "33"; //aunque lo pongas con comillas lo acepta. JAVASCRIPT SE LO TRAGA TODO
+        </script>
+    </body>
+</html>
