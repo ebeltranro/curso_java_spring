@@ -6,10 +6,47 @@
     </head>
     <body>
         <h1> Tabla general JS </h1>
-       
+
+        <form action ="#" method="post" enctype="text/plain">
+            <label for="elemento1">Nombre:</label> 
+            <input type="text" name="elemento1" id="elemento1" placeholder ="Introduzca el nombre" />
+            <br/> 
+            <br/> 
+            <label for="elemento2">Tipo:</label> 
+            <input type="text" name="elemento2" id="elemento2" placeholder ="Introduzca el tipo" />
+            <br/> 
+            <br/> 
+            <label for="elemento3">Precio:</label> 
+            <input type="number" name="elemento3" id="elemento3" placeholder ="Introduzca el precio" />
+            <br/>  
+            <br/> 
+            <label for="elemento4">Stock:</label> 
+            <input type="number" name="elemento4" id="elemento4" placeholder ="Introduzca el stock" />
+
+            <br/> 
+            <br/> 
+            <input type="button" value="Añadir nuevo usuario" onclick="pasarParametros()"/>
+            <!--<br/> 
+            <br/> 
+            <input type="button" value="Añadir nuevo usuario directamente" onclick="agregarCosasDirectamente()"/>
+            <br/> 
+            <br/> 
+            <input type="button" value="Añadir nuevo usuario directamente 2" onclick="agregarCosasDirectamente2()"/>
+            -->
+            <br/> 
+            <br/> 
+            <input type="button" value="Borrar nuevo usuario" onclick="borrar()"/>
+            <br/> 
+            <br/> 
+            <input type="button" value="Borrar todos los usuarios" onclick="borrarToda()"/>
+
+        </form>
+
         <table border="2"> 
-            
+
         </table>
+
+
         <script src="js/05_tablas_js.js"></script>
     </body>
 </html>
