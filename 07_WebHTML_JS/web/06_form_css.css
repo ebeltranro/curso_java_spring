@@ -1,0 +1,53 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17-may-2019, 13:26:07
+    Author     : Admin
+*/
+*{ /*el * significa que afecta a todo*/
+    margin: 0px; /*es bueno inicializar*/
+    padding: 0px;
+    
+}
+
+/*Selector de etiqueta*/
+/* HAY QUE USAR SELECTEORES DE CLASE PREFERENTEMENTE, NO USAR LOS DE ID NI LABEL porque no sabemos 
+si todos los elementos van a llevar ese estilo*/
+
+form {
+    background-color: #AAFFAA; /*color de fondo*/ 
+    padding: 10px; /*hueco entre el margen del texto y el margen del elemento (formulario)*/
+    display: block; 
+}
+
+.margen-lateral{ /*se refiere a una clase*/
+    margin-left: 40%;
+    margin-right: 40%;
+    text-align: center;
+}
+
+#email { /*para modificar un id*/
+    font-size: 1.2em;
+}
+
+
+form div{
+    display:block;
+}
+/*form *{ selector usado para los descendientes de form (los input y label)
+    display: block; 
+}
+*/
+/*
+form label, form input{ lo mismo que el de arriba
+    display: block; 
+}*/
+
+label{
+    width: 200px; /*20% de la pantalla*/
+    display: inline-block; /*obligatorio para los label*/
+}
+
