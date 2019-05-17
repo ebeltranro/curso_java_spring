@@ -6,34 +6,40 @@
         <link rel="stylesheet" type="text/css" href="06_form_css.css"/>
     </head>
     <body>
-        <div class="margen-lateral">
-            <h1> Formularios </h1>
+        <div class="titulo">
+            Formularios 
         </div>
-        <div>
-            <form action="mailto:correo@empresa.com" method ="post" enctype="text/plain">
-                <div>
-                    <label for="nombre">Nombre:</label> <!--con for añadimos a qué etiqueta corresponde el label-->
-                    <input type="text" name="nombre" id="nombre" size="30" maxlength="40" placeholder ="Introduzca su nombre" /> <!-- size es para el tamaño de la barra; aunque 
+        <div class="cuadrado">
+            <br/>
+            <br/>
+            <form action="mailto:correo@empresa.com" method ="post" enctype="text/plain"  class="cuerpo">
+                <div class="bloque">
+                    <label for="nombre" class="nom">Nombre:</label> <!--con for añadimos a qué etiqueta corresponde el label-->
+                    <input type="text" name="nombre" id="nombre" 
+                           size="30" maxlength="40" 
+                           placeholder ="Introduzca su nombre"  class="valor"/> <!-- size es para el tamaño de la barra; aunque 
                     podemos meterle todo el texto-->
                     <!-- maxlength limita los caracteres que se pueden incluir -->
                     <!--Placeholder te añade texto en la barra-->            
                 </div>
 
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" size="30" maxlength="255"/>
+                <div class="bloque">
+                    <label for="email" class="em">Email:</label>
+                    <input type="email" name="email" id="email" size="30" maxlength="255" class="valor"/>
+                </div>
+
+                <div class="bloque">
+                    <label for="edad" class="ed">Edad:</label>
+                    <input type="number" name="edad" id="edad" min="18" max="80" step="5" class="valor"/> 
                 </div>
 
                 <div>
-                    <label for="email">Edad:</label>
-                    <input type="number" name="edad" id="edad" min="18" max="80" step="5"/> 
-                </div>
-
-                <div>
-                    <input type="submit" value="Enviar formulario"/>
-                    <input type="reset" value="Borrar formulario"/>
+                    <input type="submit" value="Enviar formulario" class="boton submit"/>
+                    <input type="reset" value="Borrar formulario" class="boton reset"/>
                 </div>
             </form>
+            <br/>
+            <br/>
         </div>
         <script> //código javascript; debe ir al final del body. Cambia el código para comentarios
             //todo lo que hacemos en html lo podemos alterar en el script

@@ -10,33 +10,89 @@ and open the template in the editor.
 *{ /*el * significa que afecta a todo*/
     margin: 0px; /*es bueno inicializar*/
     padding: 0px;
-    
 }
 
 /*Selector de etiqueta*/
 /* HAY QUE USAR SELECTEORES DE CLASE PREFERENTEMENTE, NO USAR LOS DE ID NI LABEL porque no sabemos 
 si todos los elementos van a llevar ese estilo*/
 
-form {
+.cuerpo{
     background-color: #AAFFAA; /*color de fondo*/ 
-    padding: 10px; /*hueco entre el margen del texto y el margen del elemento (formulario)*/
-    display: block; 
+    padding: 30px; /*hueco entre el margen del texto y el margen del elemento (formulario)*/
+    margin-left: 30%;
+    margin-right: 30%;
+    border-style:ridge;
+    border-color: darkgreen;
+    border-radius: 50px;
+    border-width: 15px;
 }
-
-.margen-lateral{ /*se refiere a una clase*/
-    margin-left: 40%;
-    margin-right: 40%;
+.bloque{
+    text-align: left;
+    margin-left: 1%;
+    margin-bottom:4%;
+    font-size: 2em;
+    font-family: sans-serif;
+}
+.cuadrado {
+    background-color: yellow;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%; 
+}
+.titulo{ /*se refiere a una clase*/
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top:5%;
     text-align: center;
+    padding: 30px;
+    background-color: #00FFFF;
+    font-family: fantasy;
+    font-size: 5em;     
+    font-style:oblique;
+    border-style:dotted;
+    border-color: blue;
+    border-radius: 10px;
 }
+.valor{
+    margin-left: 4%;
+    font-size: 0.8em;
+    font-style: oblique;
+    width: 50%;
+    border-radius: 10px;
+}
+.nom{
+    color: purple;
+    display:inline-block;
+    width:150px;
+}
+.em{
+    color: red;
+    display:inline-block;
+    width:150px;
+}
+.ed{
+    color: orange;
+    display:inline-block;
+    width:150px;
 
-#email { /*para modificar un id*/
+}
+.boton{
+    margin-top:3%;
+    color: red;
+    font-size: 2em;
+    margin-right: 5%;   
+}
+.submit{
+    background-color: yellow;
+}
+.reset{
+    background-color: gainsboro;
+}
+/*
+#email { para modificar un id
     font-size: 1.2em;
 }
-
-
-form div{
-    display:block;
-}
+*/
 /*form *{ selector usado para los descendientes de form (los input y label)
     display: block; 
 }
@@ -46,8 +102,5 @@ form label, form input{ lo mismo que el de arriba
     display: block; 
 }*/
 
-label{
-    width: 200px; /*20% de la pantalla*/
-    display: inline-block; /*obligatorio para los label*/
-}
+
 

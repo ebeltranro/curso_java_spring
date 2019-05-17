@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <input id="btn" type="button"  value="Probar"/>
+        <!--vamos a añadir interactividad al botón -->
+        <div id="divDatos">TODO write content</div>
+        <script>
+            function mostrarDatos() {
+                var divDatos = document.getElementById("divDatos");
+                divDatos.innerHTML = "Datos de objetos";
+                var objCliente = new Object();
+                objCliente.nombre = "Juan";
+                objCliente.edad = 27; // en JS se crean las variables sobre la marcha
+                //otra manera de añadirle propiedades
+                objCliente["activo"] = true; //es lo mismo que .activo
+                divDatos.innerHTML += "<br/>" + "Nombre: " + objCliente["nombre"] +
+                        " Activo: " + objCliente.activo + "<br/>";
+                //en JS TODO SON OBJETOS, hasta las funciones
+                //asignamos una función anónima a una función toString
+                objCliente.toString = function () {
+                    return " Nombre: " + objCliente["nombre"] +
+                            " Edad: " + objCliente.edad;
+                };
+                var funATexto = new Function("param", "return this.nombre + '-' + param");
+                //recibe el parametro y devuelve el segundo
+                funATexto.propiedadSinSentido = "No tengo razon para vivir";
+                objCliente.aTexto = funATexto;
+
+                divDatos.innerHTML += objCliente.toString() + "<br/>";
+
+                divDatos.innerHTML += objCliente.aTexto("valor1") + "<br/>";//ignora la segunda variable
+
+                var Cliente = function (nom, edad) { //lo mismo que function Cliente(nom, edad) y que
+                    //new Function
+                    this.nombre = nom;
+                    this.edad = edad;
+                    this.enTexto = function () {
+                        return  "Cliente :" + this.nombre + " edad ="
+                                + this.edad; //metodo de cliente
+                    };
+                };
+                var miCliente = new Cliente("Ana", 30 + "<br/>");
+                divDatos.innerHTML += miCliente.enTexto();
+
+                var otroCliente = {//USANDO notación JSON. Lo mismo que los anterior.
+                    //igual que hacer new Object
+                    "nombre": "Luis",
+                    "edad": 37,
+                    "activo": true,
+                    "enTexto": function () {
+                        return "Cli " + this.nombre
+                    }
+                };
+                divDatos.innerHTML += otroCliente.enTexto() + "> "
+                        + otroCliente.edad;
+
+                for (var clave in otroCliente) {
+                    divDatos.innerHTML += "<br/>" + otroCliente[clave];
+                    //también devuelve el último elemento porque function tiene toString
+                    //y convierte el return en texto
+                
+                }
+            }
+            var btn = document.getElementById("btn");
+            //btn.onclick = mostrarDatos; 
+            btn.addEventListener("click", mostrarDatos);
+        </script>
+    </body>
+</html>
