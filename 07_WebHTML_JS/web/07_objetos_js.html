@@ -18,19 +18,27 @@ and open the template in the editor.
             function mostrarDatos() {
                 var divDatos = document.getElementById("divDatos");
                 divDatos.innerHTML = "Datos de objetos";
+                //3 FORMAS DE CREAR OBJETOS EN JS
+                //1)Usando New Object y añadiendo los campos
                 var objCliente = new Object();
+                //añadimos variables miembro (propiedades)
                 objCliente.nombre = "Juan";
-                objCliente.edad = 27; // en JS se crean las variables sobre la marcha
+                objCliente.edad = 27;
                 //otra manera de añadirle propiedades
-                objCliente["activo"] = true; //es lo mismo que .activo
+                objCliente["activo"] = true; //es lo mismo que .activo. Los objetos en JS son
+                //una especie de HashMap; por eso podemos usar el [   ]
+                //innerHTML es el contenido de una etiqueta HTML
                 divDatos.innerHTML += "<br/>" + "Nombre: " + objCliente["nombre"] +
                         " Activo: " + objCliente.activo + "<br/>";
                 //en JS TODO SON OBJETOS, hasta las funciones
                 //asignamos una función anónima a una función toString
+                //sobreescribimos el método toString
                 objCliente.toString = function () {
                     return " Nombre: " + objCliente["nombre"] +
                             " Edad: " + objCliente.edad;
                 };
+
+                //otra forma de definir una función
                 var funATexto = new Function("param", "return this.nombre + '-' + param");
                 //recibe el parametro y devuelve el segundo
                 funATexto.propiedadSinSentido = "No tengo razon para vivir";
@@ -40,7 +48,10 @@ and open the template in the editor.
 
                 divDatos.innerHTML += objCliente.aTexto("valor1") + "<br/>";//ignora la segunda variable
 
-                var Cliente = function (nom, edad) { //lo mismo que function Cliente(nom, edad) y que
+                //2) Con algo parecido a un constructor en java: function con estructura de constructor.   
+                //es conveniente usar la primera letra mayúscula, para que parezca que es una especie de clase
+                //pero no es obligatorio
+                var Cliente = function (nom, edad) {
                     //new Function
                     this.nombre = nom;
                     this.edad = edad;
@@ -49,18 +60,50 @@ and open the template in the editor.
                                 + this.edad; //metodo de cliente
                     };
                 };
-                var miCliente = new Cliente("Ana", 30 + "<br/>");
+                //se crea con el new
+                //cada vez que hiciéramos un new Cliente se crearía una función nueva
+                var miCliente = new Cliente("Ana", 30 + "<br/>"); //se ejerce el constructor cuando hacemos NEW
                 divDatos.innerHTML += miCliente.enTexto();
 
-                var otroCliente = {//USANDO notación JSON. Lo mismo que los anterior.
-                    //igual que hacer new Object
+                //la forma de crear un método común
+                //para todos los clientes es usando prototype
+                //como en Java
+                Cliente.prototype.enTexto = function () {
+                    return  "Cliente :" + this.nombre + " edad ="
+                            + this.edad;
+                };
+                
+                //otra forma de crear este método parecido al método estático en Java
+                //solo sirve para el objeto función Cliente
+                Cliente.enTexto = function(cli){
+                    return  "Cliente :" + cli.nombre + " edad ="
+                            + cli.edad;
+                };
+
+                //3) Notación correcta de JSON
+                var otroCliente = {
+                    //notación de clave, valor
                     "nombre": "Luis",
                     "edad": 37,
                     "activo": true,
+                    //al no sobreescribir toString, Cliente sigue teniendo el método toString por defecto
+                    //si sobreescribieramos toString solo afectaria a cliente
                     "enTexto": function () {
-                        return "Cli " + this.nombre
+                        return "Cli " + this.nombre;
                     }
                 };
+
+                //otros formatos permitidos de notación sólo para JS
+                var otroCliente2 = {
+                    'nombre': "Luis",
+                    edad: 37,
+                    "activo": true,
+                    "enTexto": function () {
+                        return "Cli " + this.nombre;
+                    }
+                };
+
+
                 divDatos.innerHTML += otroCliente.enTexto() + "> "
                         + otroCliente.edad;
 
@@ -68,12 +111,27 @@ and open the template in the editor.
                     divDatos.innerHTML += "<br/>" + otroCliente[clave];
                     //también devuelve el último elemento porque function tiene toString
                     //y convierte el return en texto
-                
+
                 }
             }
             var btn = document.getElementById("btn");
             //btn.onclick = mostrarDatos; 
             btn.addEventListener("click", mostrarDatos);
+
+            //esto lo ha cogido ES6 de TypeScript. Está basado en prototipos
+            class ClaseCliente {
+                //Azúcar sintáctico para lo mismo que antes de los objetos
+                constructor(nombre, edad, act) {
+                    this.nombre = nombre;
+                    this.edad = edad;
+                    this.activo = act;
+                }
+                //para crear un método simplemente ponemos su nombre
+                //un método estilo prototype, común a todas las clases
+                toString() {
+                    return "Cli " + this.nombre;
+                }
+            }
         </script>
     </body>
 </html>
