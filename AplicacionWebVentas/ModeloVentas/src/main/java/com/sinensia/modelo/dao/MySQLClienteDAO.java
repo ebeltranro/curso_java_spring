@@ -1,92 +1,110 @@
 package com.sinensia.modelo.dao;
 
-import com.mysql.cj.jdbc.Driver;
 import com.sinensia.modelo.Cliente;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Admin - Elena
- */
 public class MySQLClienteDAO implements InterfazDAO<Cliente> {
 
     public MySQLClienteDAO() {
-
-        //primero cargamos el driver. Siempre necesario para establecer una conexión con la BBDD
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             DriverManager.registerDriver(
                     new com.mysql.cj.jdbc.Driver());
         } catch (SQLException ex) {
-            Logger.getLogger(MySQLClienteDAO.class.getName()).log(Level.SEVERE, "Error"
-                    + "SQL", ex);
+            Logger.getLogger(MySQLClienteDAO.class.getName())
+                    .log(Level.SEVERE, "Error SQL", ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MySQLClienteDAO.class.getName()).log(Level.SEVERE, "Error"
-                    + "en la clase", ex);
+            Logger.getLogger(MySQLClienteDAO.class.getName())
+                    .log(Level.SEVERE, "Error en la clase", ex);
         } catch (Exception ex) {
-            Logger.getLogger(MySQLClienteDAO.class.getName()).log(Level.SEVERE, "Otro error", ex);
+            Logger.getLogger(MySQLClienteDAO.class.getName())
+                    .log(Level.SEVERE, "Otro error", ex);
         }
     }
 
-    //añadamos un método para crear un nuevo usuario en la base de datos 
-    public boolean crear(String nombre, String email, String passwd, int edad, boolean activo) {
-
-        try (Connection conex = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_ventas?user"
-                + "=admin&password=Admin1234&useSSL=false&serverTimezone=UTC",
-                "admin", "Admin1234")) { //no es recomendable porque si cambia la conexión hay que cambiar esta línea y voler a recompilar
-            //es mejor usar properties
-            //consulta a la bbdd en SQL. LA FORMA MÁS RUDIMENTARIA
-            //en SQL las cadenas van siempre con comillas simples '  '
-            String sqlQuery = "INSERT INTO cliente (nombre, email, password, edad, activo)"
-                    + " VALUES ( '" + nombre + "', '" + email + "' , '" + passwd + "', "
-                    + edad + ", " + (activo ? "1" : "0") + ")"; //edad y activo no van entre '' porque no son String
+    public boolean crear(String nombre, String email,
+            String passwd, int edad, boolean activo) {
+        try (Connection conex = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/bd_ventas?user=admin&password=Admin1234&useSSL=false&serverTimezone=UTC",
+                "admin", "Admin1234")) {
+            String sqlQuery
+                    = "INSERT INTO cliente (nombre, email, password, edad, activo) "
+                    + " VALUES ( '" + nombre + "' , '" + email + "' , '" + passwd
+                    + "' , " + edad + " , " + (activo ? "1" : "0") + " ) ";
             Statement sentencia = conex.createStatement();
             sentencia.executeUpdate(sqlQuery);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(MySQLClienteDAO.class.getName()).log(Level.SEVERE, "Error"
-                    + "SQL", ex);
+            Logger.getLogger(MySQLClienteDAO.class.getName())
+                    .log(Level.SEVERE, "Error SQL", ex);
             return false;
         }
     }
 
     @Override
     public Cliente insertar(Cliente cliente) {
-        try (Connection conex = DriverManager.getConnection(Constantes.CONEXION, Constantes.USUARIO, Constantes.PASSWORD)) {
-            String sqlQuery = "INSERT INTO cliente (nombre, email, password, edad, activo)"
-                    + " VALUES (?,?,?,?,?)";
+        try (Connection conex = DriverManager.getConnection(
+                Constantes.CONEXION, Constantes.USUARIO, Constantes.PASSWORD)) {
+            String sqlQuery
+                    = "INSERT INTO cliente (nombre, email, password, edad, activo) "
+                    + " VALUES ( ?, ?, ?, ?, ? ) ";
             PreparedStatement sentencia = conex.prepareStatement(sqlQuery);
-            sentencia.setString(1,cliente.getNombre()); //Primer interrogante
-            sentencia.setString(2,cliente.getEmail()); //Segundo interrogante
-            sentencia.setString(3,cliente.getPassword()); //Tercer interrogante
-            sentencia.setShort(4,cliente.getEdad()); //Cuarto interrogante
-            sentencia.setShort(5,cliente.getActivo()); //Quinto interrogante
-            sentencia.executeUpdate(sqlQuery);
+            sentencia.setString(1, cliente.getNombre()); // Primer ? interrogante
+            sentencia.setString(2, cliente.getEmail()); // Segundo ? interrogante
+            sentencia.setString(3, cliente.getPassword());
+            sentencia.setShort(4, cliente.getEdad());
+            sentencia.setShort(5, cliente.getActivo());
+            sentencia.executeUpdate();
             return cliente;
         } catch (SQLException ex) {
-            Logger.getLogger(MySQLClienteDAO.class.getName()).log(Level.SEVERE, "Error"
-                    + "SQL", ex);
+            Logger.getLogger(MySQLClienteDAO.class.getName())
+                    .log(Level.SEVERE, "Error SQL", ex);
             return null;
-
         }
-
     }
 
-    @Override
-    public Cliente obtenerUno(Integer id) {
+       @Override
+    public Cliente obtenerUno(Integer id) { 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    /*public Cliente obtenerUno(String email) {//ya está en ServicioClientes
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
 
     @Override
     public List<Cliente> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conex = DriverManager.getConnection(
+                Constantes.CONEXION, Constantes.USUARIO, Constantes.PASSWORD)) {
+            String sqlQuery = "SELECT id, nombre, edad, email, password, activo  FROM cliente";
+            PreparedStatement sentencia = conex.prepareStatement(sqlQuery);
+            List<Cliente> clientes = new ArrayList<>();
+            ResultSet res =  sentencia.executeQuery();
+            while ( res.next()) {
+                int id = res.getInt("id");
+                String nombre = res.getString("nombre");
+                String email = res.getString("email");
+                String password = res.getString("password");
+                short edad = res.getShort("edad");
+                short activo = res.getShort("activo");
+                Cliente cli = new Cliente(id, nombre, email, edad, activo, password);
+                clientes.add(cli);
+            }
+            return clientes;
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQLClienteDAO.class.getName())
+                    .log(Level.SEVERE, "Error SQL", ex);
+            return null;
+        }
     }
 
     @Override
@@ -96,12 +114,41 @@ public class MySQLClienteDAO implements InterfazDAO<Cliente> {
 
     @Override
     public void eliminar(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conex = DriverManager.getConnection(
+                Constantes.CONEXION, Constantes.USUARIO, Constantes.PASSWORD)) {
+            String sqlQuery = "DELETE FROM cliente WHERE id = ?";
+            PreparedStatement sentencia = conex.prepareStatement(sqlQuery);
+            sentencia.setInt(1, id); // Primer ? interrogante
+            sentencia.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQLClienteDAO.class.getName())
+                    .log(Level.SEVERE, "Error SQL", ex);
+        }
+    }
+
+    public void eliminar(String email) {
+        eliminar(obtenerUno(email).getId());
     }
 
     @Override
-    public Cliente modificar(Cliente nuevoValor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Cliente modificar(Cliente cliente) {
+                try (Connection conex = DriverManager.getConnection(
+                Constantes.CONEXION, Constantes.USUARIO, Constantes.PASSWORD)) {
+            String sqlQuery
+                    = "UPDATE cliente SET nombre = ?, email = ?, password = ?, edad=?, activo =? WHERE id = ? ";
+            PreparedStatement sentencia = conex.prepareStatement(sqlQuery);
+            sentencia.setString(1, cliente.getNombre()); // Primer ? interrogante
+            sentencia.setString(2, cliente.getEmail()); // Segundo ? interrogante
+            sentencia.setString(3, cliente.getPassword());
+            sentencia.setShort(4, cliente.getEdad());
+            sentencia.setShort(5, cliente.getActivo());
+            sentencia.setInt(6, cliente.getId());
+            sentencia.executeUpdate();
+            return cliente;
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQLClienteDAO.class.getName())
+                    .log(Level.SEVERE, "Error SQL", ex);
+            return null;
+        }
     }
-
 }
