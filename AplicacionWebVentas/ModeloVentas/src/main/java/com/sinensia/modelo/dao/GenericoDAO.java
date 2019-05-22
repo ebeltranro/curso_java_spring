@@ -78,4 +78,11 @@ public class GenericoDAO<T extends Entidad>
         cli.setEmail(nuevoValor.getEmail());
         cli.setNombre(nuevoValor.getNombre());*/
     }
+    
+    /*public void modificar(T cliente)
+    T clienteModificado = mapa.get(cliente.getId());
+    clienteModificado.setNombre(cliente.getNombre()));
+    clienteModificado.setEmail(cliente.getEmail());
+    System.out.println(clienteModificado.getEmail());
+    */
 }
