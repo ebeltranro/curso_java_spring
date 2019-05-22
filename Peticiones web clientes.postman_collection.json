@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "3adba698-50ef-4533-aae5-831bdb5e8697",
+		"name": "Peticiones web clientes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Nuevo cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/08_WebServlets/registro?nombre=FulanoDeTal&edad=10&email=juuuu@email.com&activo=on",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"08_WebServlets",
+						"registro"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "FulanoDeTal"
+						},
+						{
+							"key": "edad",
+							"value": "10"
+						},
+						{
+							"key": "email",
+							"value": "juuuu@email.com"
+						},
+						{
+							"key": "activo",
+							"value": "on"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nuevo cliente Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/08_WebServlets/registro?nombre=FulanoDeTal&edad=16&email=ju6uuuu@email.com&activo=on",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"08_WebServlets",
+						"registro"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "FulanoDeTal"
+						},
+						{
+							"key": "edad",
+							"value": "16"
+						},
+						{
+							"key": "email",
+							"value": "ju6uuuu@email.com"
+						},
+						{
+							"key": "activo",
+							"value": "on"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nuevo cliente invalida",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/08_WebServlets/registro?nombre=FulanoDeTal&edad=24&activo=o&email=huuuuuu@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"08_WebServlets",
+						"registro"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "FulanoDeTal"
+						},
+						{
+							"key": "edad",
+							"value": "24"
+						},
+						{
+							"key": "activo",
+							"value": "o"
+						},
+						{
+							"key": "email",
+							"value": "huuuuuu@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
