@@ -9,7 +9,10 @@ import com.sinensia.modelo.Cliente;
 import com.sinensia.modelo.logica.ServicioClientes;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,31 +23,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ControladorClientes extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControladorClientes</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControladorClientes at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -55,10 +33,32 @@ public class ControladorClientes extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    //las peticiones get se piden con url. se suele usar para pedir métodos al servidor 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response); lo comentamos porque el servlet no debe tener nada de html (nada de la vista)
+
+        String nombre = request.getParameter("nombre");
+        nombre = nombre != null ? nombre : "";
+        
+        Cookie galleta = new Cookie("nombre_busqueda",nombre);
+        galleta.setMaxAge(10000); //fijamos que la cookie dure mucho tiempo en lugar de que se borre al acabar la sesión
+        response.addCookie(galleta); //lo añadimos a la respuesta 
+        
+        
+        ServicioClientes srvCli = new ServicioClientes();
+        List<Cliente> listado = srvCli.obtenerTodos();
+        List<Cliente> listaPorNombre = new ArrayList<>();
+        for (Cliente cliente : listado) { //se podría hacer con un SELECT en el servicio (sería lo suyo)
+            if (cliente.getNombre().contains(nombre)) {
+                listaPorNombre.add(cliente);
+            }
+        }
+        //vamos a enviar la lista listaPorNombre a la vista lista_jstl.jsp usando java beans
+       //pedido por peticion(bolsa de peticion) request.setAttribute("listaPorNombre", listaPorNombre); //enviando cosas a listado_jstl
+       //pedido por la bolsa de sesión; dura mucho más tiempo 
+       request.getSession().setAttribute("listaPorNombre", listaPorNombre); //enviando cosas a listado_jstl
+       request.getRequestDispatcher("listado_jstl.jsp").forward(request, response);
     }
 
     /**
@@ -69,9 +69,10 @@ public class ControladorClientes extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    //las peticiones post se hacen mediante formulario. como estos paramétros los enviamos por un form usamos este método
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException { //el form llama al método doPost
         //processRequest(request, response);
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
@@ -83,9 +84,10 @@ public class ControladorClientes extends HttpServlet {
         servCli = new ServicioClientes();
         Cliente cli = servCli.insertar(nombre, email, password, edad, activo); //ahora lo enviamos a la vista para ver el cliente
         if (cli == null) {
-            request.getRequestDispatcher("error_registro.jsp").forward(request, response); //si no hay cliente creado enviar a html de error
-        } else {request.getRequestDispatcher("registro_ok.jsp").forward(request, response);
-            
+            request.getRequestDispatcher("error_registro.jsp").forward(request, response); //si no hay cliente creado redireccionar a html de error
+        } else {
+            request.getRequestDispatcher("registro_ok.jsp").forward(request, response);
+
         }
     }
 
