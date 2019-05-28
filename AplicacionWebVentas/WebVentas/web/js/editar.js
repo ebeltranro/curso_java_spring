@@ -37,22 +37,35 @@ var alPulsarModificar = function () {
             alert("Hemos recibido algo!!!!" + this.responseText);
             var jsonResp = this.responseText;
             var objResp = JSON.parse(jsonResp); //Deserializar el JSON en un objeto JS
+
+
+
             alert(" Email recibido? " + objResp.email + "\n" + "Y el nombre? " + objResp["nombre"] + "\n"
                     + " Y la password? " + objResp.password + "\n" + " Está activo? " + objResp.activo
                     + "\n" + " Y el ID? " + objResp.id);
 
-            document.getElementById("nombre_cli").innerHTML = objResp.nombre;
-            document.getElementById("email_cli").innerHTML = objResp.email;
-            document.getElementById("id_cli").innerHTML = objResp.id;
-            document.getElementById("edad_cli").innerHTML = objResp.edad;
-            document.getElementById("activo_cli").innerHTML = objResp.activo;
+            console.log("JSON: >> " + jsonResp);
+            var divInfo = document.getElementById("div_info");
+            divInfo.style = "display:block";
+            var spanNombre = document.getElementById("nombre_cli");
+            var spanEmail = document.getElementById("email_cli");
+            var spanId = document.getElementById("id_cli");
+            var spanPassword = document.getElementById("password_cli");
+            var spanEdad = document.getElementById("edad_cli");
+            var spanActivo = document.getElementById("activo_cli");
+            spanNombre.innerHTML = objResp.nombre;
+            spanEmail.innerHTML = objResp.email;
+            spanId.innerHTML = objResp.id;
+            spanPassword.innerHTML = objResp.password;
+            spanEdad.innerHTML = objResp.edad;
+            spanActivo.innerHTML = objResp.activo;
 
         } /*else {
          alert("Aun NO hemos recibido nada!");
          }*/
     };
     // Definimos la petición
-    peticionHTTP.open("POST", "http://localhost:8084/WebVentas/clientes2.do", true); //cuando hacemos open llama a onreadystatechange porque cambia de estado
+    peticionHTTP.open("POST", "clientes2.do", true); //cuando hacemos open llama a onreadystatechange porque cambia de estado
     peticionHTTP.setRequestHeader("Content-type",
             "application/x-www-form-urlencoded");//enviamos el formulario así mediante js. volvemos a llamar a onreadystatechange
     // lanzamos la petición
@@ -62,7 +75,7 @@ var alPulsarModificar = function () {
             "nombre=" + encodeURIComponent(document.getElementById("nombre").value)
             + "&email=" + encodeURIComponent(document.getElementById("email").value)
             + "&password_encrip=" + encodeURIComponent(document.getElementById("password_encrip").value)
-            + "&activo=" + encodeURIComponent(document.getElementById("activo").value)
+            + "&activo=" + encodeURIComponent(activo)
             + "&edad=" + encodeURIComponent(document.getElementById("edad").value);
 
     alert("¿Qué se va a enviar?\n" + cadenaEnvio);
@@ -74,7 +87,3 @@ var alPulsarModificar = function () {
 document.getElementById("btn_modificar").onclick = alPulsarModificar; //esto significa que cuando hacemos click el navegador ejecute esa función;
 
 //no es lo mismo que poner poner () porque no queremos el resultado de la función
-
-
-
-

@@ -42,12 +42,15 @@
             <%-- cambiamos el botón de submit porque no queremos enviar por html --%>
             <input id="btn_modificar" type="button" value="Modificar"/>
 
-        </form><p> ID: <span id="id_cli"> </span> </p>
-        <p> Nombre : <span id="nombre_cli">   </span> </p>
-        <p> Email : <span id="email_cli"> </span> </p>
-        <p> Edad : <span id="edad_cli"> </span> </p>
-        <p> Activo : <span id="activo_cli"> </span> </p>
-        
+        </form>
+        <div id="div_info" style="display: none">
+            <p> ID: <span id="id_cli">...</span> </p>
+            <p> Nombre : <span id="nombre_cli">...</span> </p>
+            <p> Email : <span id="email_cli">...</span> </p>
+            <p> Edad : <span id="edad_cli">...</span> </p>
+            <p> Password : <span id="password_cli">...</span> </p>
+            <p> Activo : <span id="activo_cli">...</span> </p>
+        </div>
         <%-- todo esto son peticiones GET --%>
         <script src="js/md5.min.js"></script>
         <script src="js/encriptacion.js"></script>

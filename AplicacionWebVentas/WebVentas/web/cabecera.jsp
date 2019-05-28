@@ -6,10 +6,15 @@
     <c:if test="${login != 'ok'}">
         <a href="registro.jsp">Nuevo cliente </a>
         <a href="login.jsp">Login </a>
-
+        <form name="form2" method="GET" action="clientes.do">
+            <label for="nombre_busq"> Busca el nombre: </label> 
+            <input id="nombre_busq" name="nombre_busq" type="text"/>
+            <input type="submit" value="Buscar"/>
+        </form>
     </c:if>
     <%--TODO: poner el editar dentro de login --%>
     <a href="editar.jsp">Editar AJAX + REST </a>
+    <a href="borrar.jsp">Borrar AJAX + REST </a>
     <c:if test="${login == 'ok'}">
 
         <a href="listado.jsp">Listado clientes </a>

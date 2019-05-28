@@ -42,8 +42,6 @@ public class ControladorClientes extends HttpServlet {
         Cookie galleta = new Cookie("nombre_busqueda", nombre);
         galleta.setMaxAge(10000); //fijamos que la cookie dure mucho tiempo en lugar de que se borre al acabar la sesión
         response.addCookie(galleta); //lo añadimos a la respuesta 
-        Cookie galleta2 = new Cookie("otra_cookie",nombre);
-        response.addCookie(galleta2);
 
         ServicioClientes srvCli = new ServicioClientes();
         List<Cliente> listado = srvCli.obtenerTodos();

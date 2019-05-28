@@ -5,6 +5,7 @@
  */
 package com.sinensia.controladores;
 
+import com.google.gson.Gson;
 import com.sinensia.modelo.Cliente;
 import com.sinensia.modelo.logica.ServicioClientes;
 import java.io.IOException;
@@ -46,20 +47,23 @@ public class ClienteControladorRest extends HttpServlet {
             servCli = new ServicioClientes();
 
             Cliente cli = servCli.obtenerUno(email);
-            String jsonCli = " {";
+            //String jsonCli = " {";
+            String jsonCli = null;
             if (cli != null) {
                 cli = servCli.modificar(cli.getId(), nombre, email, password, edad, activo);
                 if (cli != null) {
-                    jsonCli += "   \"id\" : \"" + cli.getId() + "\"";
+                    /*jsonCli += "   \"id\" : \"" + cli.getId() + "\"";
                     jsonCli += " ,  \"nombre\" : \"" + cli.getNombre() + "\"";
                     jsonCli += " ,  \"email\" : \"" + cli.getEmail() + "\"";
                     jsonCli += " ,  \"password\" : \"" + cli.getPassword() + "\"";
                     jsonCli += " ,  \"activo\" : \"" + cli.getActivo() + "\"";
-                    jsonCli += " ,  \"edad\" : \"" + cli.getEdad() + "\"";
+                    jsonCli += " ,  \"edad\" : \"" + cli.getEdad() + "\"";   */ 
+                    jsonCli = new Gson().toJson(cli);
                 }
-
+                
             }
-            jsonCli += "}";
+
+            //jsonCli += "}";
             salida.print(jsonCli); //salida incluida en la response
             System.out.println(">>>>" + jsonCli); //impresión por consola
             // salida.println("{'nombre' : '"  + nombre +  "'}");
@@ -90,5 +94,7 @@ public class ClienteControladorRest extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    
 
 }
