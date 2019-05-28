@@ -1,14 +1,21 @@
+<%-- 
+    Document   : editar
+    Created on : 27-may-2019, 15:35:39
+    Author     : Admin
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Registro</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Editar con REST</title>
     </head>
     <body>
-        <%@include file="cabecera.jsp"%>
-        <h2>Registro</h2>
-        <form name="form1" id="form1" method="post" action="clientes.do">
+        <h1>Editar con  REST</h1>
+        <%-- vamos a enviar el formulario mediante JS en lugar de con HTML (method, action) --%>
+
+        <form name="form1" id="form1">
             <label for="nombre"> Nombre: </label> 
             <input id="nombre" name="nombre" type="text" required="required" size="50" maxlength="50"/>
             <br/>
@@ -22,7 +29,7 @@
             <br/>
             <br/>
             <label for="activo"> Activo: </label> 
-            <input id="activo" name="activo" type="checkbox"  checked="checked"/>
+            <input id="activo" name="activo" type="checkbox" checked="checked"/>
             <br/>
             <br/>
             <label for="password"> Password </label> 
@@ -32,10 +39,18 @@
             <br/>
             <br/>
             <input type="reset" value="Limpiar"/>
-            <input type="submit" value="Enviar"/>
-        </form> 
+            <%-- cambiamos el botón de submit porque no queremos enviar por html --%>
+            <input id="btn_modificar" type="button" value="Modificar"/>
+
+        </form><p> ID: <span id="id_cli"> </span> </p>
+        <p> Nombre : <span id="nombre_cli">   </span> </p>
+        <p> Email : <span id="email_cli"> </span> </p>
+        <p> Edad : <span id="edad_cli"> </span> </p>
+        <p> Activo : <span id="activo_cli"> </span> </p>
         
-        <script src="js/md5.min.js"> </script>
-        <script src="js/encriptacion.js"> </script>
+        <%-- todo esto son peticiones GET --%>
+        <script src="js/md5.min.js"></script>
+        <script src="js/encriptacion.js"></script>
+        <script src="js/editar.js"></script>
     </body>
 </html>

@@ -23,8 +23,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ControladorClientes extends HttpServlet {
 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -38,14 +36,15 @@ public class ControladorClientes extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nombre = request.getParameter("nombre");
+        String nombre = request.getParameter("nombre_busq");
         nombre = nombre != null ? nombre : "";
-        
-        Cookie galleta = new Cookie("nombre_busqueda",nombre);
+        //creamos la cookie 
+        Cookie galleta = new Cookie("nombre_busqueda", nombre);
         galleta.setMaxAge(10000); //fijamos que la cookie dure mucho tiempo en lugar de que se borre al acabar la sesión
         response.addCookie(galleta); //lo añadimos a la respuesta 
-        
-        
+        Cookie galleta2 = new Cookie("otra_cookie",nombre);
+        response.addCookie(galleta2);
+
         ServicioClientes srvCli = new ServicioClientes();
         List<Cliente> listado = srvCli.obtenerTodos();
         List<Cliente> listaPorNombre = new ArrayList<>();
@@ -55,10 +54,10 @@ public class ControladorClientes extends HttpServlet {
             }
         }
         //vamos a enviar la lista listaPorNombre a la vista lista_jstl.jsp usando java beans
-       //pedido por peticion(bolsa de peticion) request.setAttribute("listaPorNombre", listaPorNombre); //enviando cosas a listado_jstl
-       //pedido por la bolsa de sesión; dura mucho más tiempo 
-       request.getSession().setAttribute("listaPorNombre", listaPorNombre); //enviando cosas a listado_jstl
-       request.getRequestDispatcher("listado_jstl.jsp").forward(request, response);
+        //pedido por peticion(bolsa de peticion) request.setAttribute("listaPorNombre", listaPorNombre); //enviando cosas a listado_jstl
+        //pedido por la bolsa de sesión; dura mucho más tiempo 
+        request.getSession().setAttribute("listaPorNombre", listaPorNombre); //enviando cosas a listado_jstl
+        request.getRequestDispatcher("listado_jstl.jsp").forward(request, response);
     }
 
     /**
@@ -76,7 +75,7 @@ public class ControladorClientes extends HttpServlet {
         //processRequest(request, response);
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String password = request.getParameter("password_encrip"); //necesitamos la password encriptada, la password viene vacía tras haberla borrado
         String edad = request.getParameter("edad");
         String activo = request.getParameter("activo");
 

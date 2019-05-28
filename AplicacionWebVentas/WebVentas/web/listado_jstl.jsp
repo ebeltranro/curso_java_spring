@@ -3,15 +3,14 @@
     Created on : 24-may-2019, 13:50:12
     Author     : Admin
 --%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.sinensia.modelo.Cliente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%-- List<Cliente> listaCliPorNombre = (ArrayList<Cliente>) request.getAttribute("listaPorNombre"); %> trae el bean del controlador --%>
 <%-- cogido de la bolsa de petición. <jsp:useBean id="listaPorNombre" type="java.util.ArrayList<Cliente>" scope="request"> otra manera de coger el bean de la petición--%>
-  <%-- cogido de la bolsa de sesión. esta bolsa guarda la búsqueda en listado_jstl.jsp--%> 
-  <jsp:useBean id="listaPorNombre" type="java.util.ArrayList<Cliente>" scope="session">
+<%-- cogido de la bolsa de sesión. esta bolsa guarda la búsqueda en listado_jstl.jsp--%> 
+<jsp:useBean id="listaPorNombre" type="java.util.ArrayList<Cliente>" scope="session">
     <jsp:getProperty property="*" name="listaPorNombre"/>
 </jsp:useBean>
 <!DOCTYPE html>
