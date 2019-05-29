@@ -1,5 +1,7 @@
 package com.sinensia;
 
+import com.google.gson.Gson;
+import com.sinensia.modelo.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -7,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.sinensia.modelo.MySQLCliente;
-        
-        
+import java.io.BufferedReader;
+import java.io.Reader;
 
 /**
  * Los servlets heredan de la clase HttpServlet
@@ -53,24 +55,70 @@ public class RegistroServlet extends HttpServlet {
             salida.println("<p>email=" + email + "</p>");
             salida.println("<p>activo=" + activo + "</p>");
 
-            
             MySQLCliente bdCliente = new MySQLCliente();
-            if(bdCliente.crear(nombre,email,email+"1234",edad,activo)){
-                salida.println("<p>Guardado correctamente </p>");           
-            } else{
+            if (bdCliente.crear(nombre, email, email + "1234", edad, activo)) {
+                salida.println("<p>Guardado correctamente </p>");
+            } else {
                 salida.println("<p> Guardado erroneamente </p>");
             }
-            
+
             salida.println("</body></html>");
 
         }
-        
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("application/json;charset=UTF-8"); //la respuesta tiene formato JSON
+
+        try (PrintWriter salida = response.getWriter()) {
+
+            BufferedReader bufreader = request.getReader();
+            String lectura = bufreader.readLine();      
+                       
+            Cliente cli = new Gson().fromJson(lectura, Cliente.class);
+            
+            cli.setNombre(cli.getNombre().toUpperCase());
+            cli.setEmail(cli.getEmail().toUpperCase());
+            
+           boolean activo = false;
+           if (cli.getActivo() == 1){
+               activo = true;
+           }
+           String email = cli.getEmail();
+           String nombre= cli.getNombre();
+           String password = cli.getPassword();
+           short edad = cli.getEdad();
+
+            MySQLCliente servCli = new MySQLCliente();
+            servCli.crear(nombre, email, password, edad, activo);
+            
+            String jsonCli = null;
+
+            if (servCli.crear(nombre, email, password, edad, activo)) {
+                jsonCli = "se ha guardado el nuevo cliente: " + "\n email: " + email + "\n nombre: " + nombre;
+            } else {
+                jsonCli = "no se ha podido crear el nuevo cliente";
+
+            }
+           
+           
+            
+            String jsonCli2 = new Gson().toJson(cli);
+            
+            salida.print(jsonCli2);
+            
+
+        }
+
     }
 
     @Override
     public String getServletInfo() {
         return "Registro clientes";
     }
-    
-    
+
 }

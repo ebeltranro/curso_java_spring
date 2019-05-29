@@ -42,6 +42,12 @@ and open the template in the editor.
                 </tr>
             </table> 
             <input type="submit" value="Registrarse"/>
+            <input type="button" value="Registrarse por AJAX" id="btn_registro_ajax"/>
         </form>
+         <div id="div_info" style="display: none">
+        <p> Nombre en mayúsculas: <span id="salida_nombre"></span> </p>
+        <p> Email en mayúsculas: <span id="salida_email"></span> </p>
+         </div>
+        <script src="js/registro_ajax.js"></script>
     </body>
 </html>
