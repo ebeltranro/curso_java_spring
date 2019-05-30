@@ -5,6 +5,7 @@
  */
 package com.sinensia.api;
 
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 //en lugar de crear un servlet, hemos creado una clase extendiendo a HttpServlet
 //vamos a usar unas anotaciones para indicar que esto es un servlet (decoradores)
-@WebServlet(asyncSupported = true, urlPatterns = "api.productos") //indicamos que admite comunicación asíncrona 
+@WebServlet(asyncSupported = true, urlPatterns = "/api.productos") //indicamos que admite comunicación asíncrona 
 //vamos a hacer algunas coass un poco diferentes para practicar
 public class ProductoRestConntroller extends HttpServlet {
 
@@ -40,8 +41,19 @@ public class ProductoRestConntroller extends HttpServlet {
         }
 
         bufRead.close();
-        escritorRespuesta.println(textoJson.toString().toUpperCase());
-        System.out.println(">>>>>>>>>" + textoJson.toString().toUpperCase() );
+
+        //pasamos de JSON a java para modificar (a clase producto)
+        Gson gson = new Gson();
+        
+        Producto producto = gson.fromJson(textoJson.toString(), Producto.class);
+        
+        producto.setNombre(producto.getNombre());
+        producto.setPrecio("500 bolivares");
+        //transformamos a formato JSON para enviar la respuesta
+        String jsonRespuesta = gson.toJson(producto);
+        
+        escritorRespuesta.println(jsonRespuesta);
+
     }
 
 }
