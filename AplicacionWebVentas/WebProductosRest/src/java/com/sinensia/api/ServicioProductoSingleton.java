@@ -25,7 +25,9 @@ public class ServicioProductoSingleton {
         //return (Producto[]) listaProductos.toArray(); //un cast para que los productos con forma objeto que salen del Array pasen a forma producto
         return listaProductos;
     }
-    
+    public void eliminar(int indice){
+        listaProductos.remove(indice);
+    }
     private static ServicioProductoSingleton instancia = null;
 
     //los singleton tienen constructores privados; nadie puede hacer new dentro de esta clase

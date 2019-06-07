@@ -83,7 +83,6 @@ public class ProductoRestConntroller extends HttpServlet {
 
         Gson gson = new Gson();
         producto = gson.fromJson(textoJson.toString(), Producto.class);
-        String preciodevuelto = producto.getPrecio();
 
         ServicioProductoSingleton sps = ServicioProductoSingleton.getInstancia();
 
@@ -93,7 +92,7 @@ public class ProductoRestConntroller extends HttpServlet {
             sps.insertar(producto);
             mensaje = "se ha insertado correctamente";
         } else {
-            mensaje = "No se ha insertado correctamente";
+            mensaje = "no se ha insertado correctamente";
         }
 
         String jsonRespuesta = gson.toJson(mensaje);
@@ -106,24 +105,38 @@ public class ProductoRestConntroller extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter escritorRespuesta = response.getWriter();
         response.setContentType("application/json;charset=UTF-8");
-        
+
         ArrayList<Producto> listaLeida = new ArrayList<Producto>();
         ServicioProductoSingleton sps = ServicioProductoSingleton.getInstancia();
         listaLeida = sps.obtenerTodos();
-        
+
         //Producto productoLeido = listaLeida.get(0);
         //Producto productoLeido1 = listaLeida.get(1);
-        
-        
         Gson gson = new Gson();
         //System.out.println("brea");
         //System.out.println(productoLeido.getNombre() + productoLeido1.getNombre());
-        
-        
+
         String jsonRespuesta = gson.toJson(listaLeida);
         escritorRespuesta.println(jsonRespuesta);
         //String jsonRespuesta = gson.toJson(sps.obtenerTodos());
         //escritorRespuesta.println(jsonRespuesta);
+
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        PrintWriter escritorRespuesta = response.getWriter();
+        response.setContentType("application/json;charset=UTF-8");
+
+        BufferedReader bufRead = request.getReader();
+        String strIndice = bufRead.readLine();
+        int indice = Integer.parseInt(strIndice);
+        ServicioProductoSingleton sps = ServicioProductoSingleton.getInstancia();
+        sps.eliminar(indice);
         
+        String mensaje = "ya lo he eliminado";
+        
+
     }
 }
